@@ -22,7 +22,11 @@ public class MinimalRunecraftingGUI extends JFrame
 
         setVisible(true);
 
+<<<<<<< HEAD
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+=======
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+>>>>>>> d98271b982b241899b14e026027ee955b1b8b059
 
         buildButtonPanel();
 
@@ -75,6 +79,11 @@ public class MinimalRunecraftingGUI extends JFrame
             public void run()
             {
                 MinimalRunecraftingGUI gui = new MinimalRunecraftingGUI();
+<<<<<<< HEAD
+=======
+
+                gui.setVisible(true);
+>>>>>>> d98271b982b241899b14e026027ee955b1b8b059
             }
         });
     }

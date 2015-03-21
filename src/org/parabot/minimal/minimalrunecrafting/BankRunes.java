@@ -25,7 +25,11 @@ public class BankRunes implements Strategy
     @Override
     public boolean activate()
     {
+<<<<<<< HEAD
         for (SceneObject so : SceneObjects.getNearest(BANK_BOOTH_ID))
+=======
+        for (SceneObject so : SceneObjects.getNearest(2213))
+>>>>>>> d98271b982b241899b14e026027ee955b1b8b059
         {
             if (so != null)
             {
