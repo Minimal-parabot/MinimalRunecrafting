@@ -18,11 +18,7 @@ import java.util.ArrayList;
 
 @ScriptManifest(author = "Minimal",
         category = Category.RUNECRAFTING,
-<<<<<<< HEAD
         description = "An AIO Runecrafter for the PkHonor server",
-=======
-        description = "An AIO Runecrafter for the PkHonor server.",
->>>>>>> d98271b982b241899b14e026027ee955b1b8b059
         name = "Minimal Runecrafting",
         servers = { "PkHonor" },
         version = 1.0)
@@ -46,11 +42,7 @@ public class MinimalRunecrafting extends Script implements Paintable
     @Override
     public boolean onExecute()
     {
-        MinimalRunecraftingGUI gui = new MinimalRunecraftingGUI();
-<<<<<<< HEAD
-        gui.setVisible(true);
-=======
->>>>>>> d98271b982b241899b14e026027ee955b1b8b059
+        MinimalRunecraftingGUI gui = new MinimalRunecraftingGUI();gui.setVisible(true);
 
         while (gui.isVisible())
         {
@@ -79,18 +71,14 @@ public class MinimalRunecrafting extends Script implements Paintable
         if (showPaint)
         {
             g.drawString("Time: " + timer.toString(), 560, 275);
-<<<<<<< HEAD
             g.drawString("Exp(hr): " + getPerHour(getExperienceGained()), 560, 331);
             g.drawString("Runes(hr): " + getPerHour(getRunesGained()), 560, 387);
-=======
             g.drawString("Exp(hr): " + getPerHour(true), 560, 331);
             g.drawString("Runes(hr): " + getPerHour(false), 560, 387);
->>>>>>> d98271b982b241899b14e026027ee955b1b8b059
             g.drawString("Status: " + status, 560, 443);
         }
     }
 
-<<<<<<< HEAD
     public String getPerHour(int amount)
     {
         return formatNumber(amount) + "(" + formatNumber(timer.getPerHour(amount)) + ")";
@@ -104,7 +92,8 @@ public class MinimalRunecrafting extends Script implements Paintable
     public int getRunesGained()
     {
         return Inventory.getCount(true, Altar.getRuneIds()) - STARTING_RUNES;
-=======
+    }
+
     public String getPerHour(boolean experience)
     {
         int amount;
@@ -115,7 +104,6 @@ public class MinimalRunecrafting extends Script implements Paintable
             amount = Inventory.getCount(true, Altar.getRuneIds()) - STARTING_RUNES;
 
         return formatNumber(amount) + "(" + formatNumber(timer.getPerHour(amount)) + ")";
->>>>>>> d98271b982b241899b14e026027ee955b1b8b059
     }
 
     public String formatNumber(double number)

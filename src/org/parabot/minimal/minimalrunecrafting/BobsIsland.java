@@ -17,10 +17,6 @@ public class BobsIsland implements Strategy
 
     public void execute()
     {
-<<<<<<< HEAD
-
-=======
->>>>>>> d98271b982b241899b14e026027ee955b1b8b059
         for (SceneObject so : SceneObjects.getNearest(PORTAL_ID))
         {
             final SceneObject portal = so;
