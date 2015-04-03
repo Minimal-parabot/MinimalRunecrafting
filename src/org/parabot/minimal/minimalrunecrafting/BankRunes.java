@@ -18,24 +18,12 @@ public class BankRunes implements Strategy
         this.RUNE_ESSENCE = RUNE_ESSENCE;
     }
 
-    private SceneObject bankBooth;
-
-    public final int BANK_BOOTH_ID = 2213;
+    private final int BANK_BOOTH_ID = 2213;
 
     @Override
     public boolean activate()
     {
-        for (SceneObject so : SceneObjects.getNearest(BANK_BOOTH_ID))
-        {
-            if (so != null)
-            {
-                bankBooth = so;
-
-                return true;
-            }
-        }
-
-        return false;
+        return SceneObjects.getNearest(BANK_BOOTH_ID).length > 0;
     }
 
     @Override
@@ -44,6 +32,8 @@ public class BankRunes implements Strategy
         if (Game.getOpenInterfaceId() != 23350)
         {
             MinimalRunecrafting.status = "Opening";
+
+            SceneObject bankBooth = SceneObjects.getClosest(BANK_BOOTH_ID);
 
             bankBooth.interact(0);
 

@@ -21,7 +21,7 @@ import java.util.ArrayList;
         description = "An AIO Runecrafter for the PkHonor server",
         name = "Minimal Runecrafting",
         servers = { "PkHonor" },
-        version = 1.0)
+        version = 1.2)
 
 public class MinimalRunecrafting extends Script implements Paintable
 {
@@ -29,32 +29,37 @@ public class MinimalRunecrafting extends Script implements Paintable
 
     private Timer timer;
 
-    final Image IMG = getImage("http://i.imgur.com/wjyRylv.png");
+    private final Image IMG = getImage("http://i.imgur.com/wjyRylv.png");
 
     public static String status = "";
 
     public boolean showPaint = false;
 
-    private final int RUNE_ESSENCE = 1437;
     private final int STARTING_EXPERIENCE = Skill.RUNECRAFTING.getExperience();
     private final int STARTING_RUNES = Inventory.getCount(true, Altar.getRuneIds());
+    private final int RUNE_ESSENCE = 1437;
 
     @Override
     public boolean onExecute()
     {
-        MinimalRunecraftingGUI gui = new MinimalRunecraftingGUI();gui.setVisible(true);
+        Altar altar;
+
+        MinimalRunecraftingGUI gui = new MinimalRunecraftingGUI();
+        gui.setVisible(true);
 
         while (gui.isVisible())
         {
             sleep(500);
         }
 
-        showPaint = true;
+        altar = gui.getAltar();
 
         timer = new Timer();
 
-        strategies.add(new BobsIsland());
-        strategies.add(new Runecraft(gui.getAltar(), RUNE_ESSENCE));
+        showPaint = true;
+
+        strategies.add(new Relog());
+        strategies.add(new Runecraft(altar, RUNE_ESSENCE));
         strategies.add(new BankRunes(RUNE_ESSENCE));
         provide(strategies);
         return true;
@@ -63,50 +68,35 @@ public class MinimalRunecrafting extends Script implements Paintable
     @Override
     public void paint(Graphics g)
     {
+        int expGained = Skill.RUNECRAFTING.getExperience() - STARTING_EXPERIENCE;
+        int runesCrafted = Inventory.getCount(true, Altar.getRuneIds()) - STARTING_RUNES;
+
         g.setFont(new Font("Helvetica", Font.PLAIN, 14));
         g.setColor(new Color(31, 34, 50));
 
-        g.drawImage(IMG, 550, 209, null);
-
         if (showPaint)
         {
+            g.drawImage(IMG, 550, 209, null);
             g.drawString("Time: " + timer.toString(), 560, 275);
-            g.drawString("Exp(hr): " + getPerHour(getExperienceGained()), 560, 331);
-            g.drawString("Runes(hr): " + getPerHour(getRunesGained()), 560, 387);
-            g.drawString("Exp(hr): " + getPerHour(true), 560, 331);
-            g.drawString("Runes(hr): " + getPerHour(false), 560, 387);
+            g.drawString("Exp(hr): " + getPerHour(expGained), 560, 331);
+            g.drawString("Runes(hr): " + getPerHour(runesCrafted), 560, 387);
             g.drawString("Status: " + status, 560, 443);
         }
     }
 
-    public String getPerHour(int amount)
+    private Image getImage(String url)
     {
-        return formatNumber(amount) + "(" + formatNumber(timer.getPerHour(amount)) + ")";
+        try
+        {
+            return ImageIO.read(new URL(url));
+        }
+        catch(IOException e)
+        {
+            return null;
+        }
     }
 
-    public int getExperienceGained()
-    {
-        return Skill.RUNECRAFTING.getExperience() - STARTING_EXPERIENCE;
-    }
-
-    public int getRunesGained()
-    {
-        return Inventory.getCount(true, Altar.getRuneIds()) - STARTING_RUNES;
-    }
-
-    public String getPerHour(boolean experience)
-    {
-        int amount;
-
-        if (experience)
-            amount = Skill.RUNECRAFTING.getExperience() - STARTING_EXPERIENCE;
-        else
-            amount = Inventory.getCount(true, Altar.getRuneIds()) - STARTING_RUNES;
-
-        return formatNumber(amount) + "(" + formatNumber(timer.getPerHour(amount)) + ")";
-    }
-
-    public String formatNumber(double number)
+    private String formatNumber(double number)
     {
         DecimalFormat compact = new DecimalFormat("0.0");
 
@@ -123,15 +113,8 @@ public class MinimalRunecrafting extends Script implements Paintable
         return "" + number;
     }
 
-    public Image getImage(String url)
+    private String getPerHour(int amount)
     {
-        try
-        {
-            return ImageIO.read(new URL(url));
-        }
-        catch(IOException e)
-        {
-            return null;
-        }
+        return formatNumber(amount) + "(" + formatNumber(timer.getPerHour(amount)) + ")";
     }
 }

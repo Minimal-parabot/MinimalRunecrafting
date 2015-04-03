@@ -42,7 +42,7 @@ public class MinimalRunecraftingGUI extends JFrame
         altarComboBox.setFont(font);
         altarComboBox.setRenderer(dlcr);
 
-        for (Altar a : Altar.getAltars())
+        for (Altar a : Altar.values())
         {
             altarComboBox.addItem(a);
         }
