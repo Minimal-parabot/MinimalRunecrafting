@@ -35,16 +35,19 @@ public class BankRunes implements Strategy
 
             SceneObject bankBooth = SceneObjects.getClosest(BANK_BOOTH_ID);
 
-            bankBooth.interact(0);
-
-            Time.sleep(new SleepCondition()
+            if (bankBooth != null)
             {
-                @Override
-                public boolean isValid()
+                bankBooth.interact(0);
+
+                Time.sleep(new SleepCondition()
                 {
-                    return Game.getOpenInterfaceId() == 23350;
-                }
-            }, 2500);
+                    @Override
+                    public boolean isValid()
+                    {
+                        return Game.getOpenInterfaceId() == 23350;
+                    }
+                }, 2500);
+            }
         }
 
         if (Game.getOpenInterfaceId() == 23350)
