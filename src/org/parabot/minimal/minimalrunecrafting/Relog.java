@@ -1,10 +1,11 @@
 package org.parabot.minimal.minimalrunecrafting;
 
+import org.parabot.core.ui.Logger;
 import org.parabot.environment.api.utils.Time;
 import org.parabot.environment.input.Keyboard;
 import org.parabot.environment.scripts.framework.SleepCondition;
 import org.parabot.environment.scripts.framework.Strategy;
-import org.rev317.min.Loader;
+import org.rev317.min.api.methods.Game;
 
 import java.awt.event.KeyEvent;
 
@@ -13,44 +14,30 @@ public class Relog implements Strategy
     @Override
     public boolean activate()
     {
-        return !Loader.getClient().isLoggedIn();
+        return !Game.isLoggedIn();
     }
 
     @Override
     public void execute()
     {
-        MinimalRunecrafting.status = "Possible dc";
+        Logger.addMessage("Relogging", true);
+
+        Keyboard.getInstance().clickKey(KeyEvent.VK_ENTER);
 
         Time.sleep(new SleepCondition()
         {
             @Override
             public boolean isValid()
             {
-                return Loader.getClient().isLoggedIn();
+                return Game.isLoggedIn();
             }
-        }, 3000);
+        }, 5000);
 
-        if (!Loader.getClient().isLoggedIn())
+        if (Game.isLoggedIn())
         {
-            MinimalRunecrafting.status = "Logging in";
+            Logger.addMessage("Waiting after relog", true);
 
-            Keyboard.getInstance().clickKey(KeyEvent.VK_ENTER);
-
-            Time.sleep(new SleepCondition()
-            {
-                @Override
-                public boolean isValid()
-                {
-                    return Loader.getClient().isLoggedIn();
-                }
-            }, 5000);
-
-            if (Loader.getClient().isLoggedIn())
-            {
-                MinimalRunecrafting.status += "..";
-
-                Time.sleep(4000);
-            }
+            Time.sleep(4000);
         }
     }
 }

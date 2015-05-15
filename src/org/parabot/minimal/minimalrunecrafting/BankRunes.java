@@ -1,5 +1,6 @@
 package org.parabot.minimal.minimalrunecrafting;
 
+import org.parabot.core.ui.Logger;
 import org.parabot.environment.api.utils.Time;
 import org.parabot.environment.scripts.framework.SleepCondition;
 import org.parabot.environment.scripts.framework.Strategy;
@@ -31,7 +32,7 @@ public class BankRunes implements Strategy
     {
         if (Game.getOpenInterfaceId() != 23350)
         {
-            MinimalRunecrafting.status = "Opening";
+            Logger.addMessage("Opening bank", true);
 
             SceneObject bankBooth = SceneObjects.getClosest(BANK_BOOTH_ID);
 
@@ -52,7 +53,7 @@ public class BankRunes implements Strategy
 
         if (Game.getOpenInterfaceId() == 23350)
         {
-            MinimalRunecrafting.status = "Banking";
+            Logger.addMessage("Withdrawing Rune essence", true);
 
             Menu.sendAction(53, RUNE_ESSENCE - 1, 0, 5382);
 

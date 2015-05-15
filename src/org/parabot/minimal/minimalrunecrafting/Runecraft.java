@@ -1,5 +1,6 @@
 package org.parabot.minimal.minimalrunecrafting;
 
+import org.parabot.core.ui.Logger;
 import org.parabot.environment.api.utils.Time;
 import org.parabot.environment.scripts.framework.SleepCondition;
 import org.parabot.environment.scripts.framework.Strategy;
@@ -41,7 +42,7 @@ public class Runecraft implements Strategy
     @Override
     public void execute()
     {
-        MinimalRunecrafting.status = "Runecrafting";
+        Logger.addMessage("Runecrafting", true);
 
         runeAltar.interact(0);
 

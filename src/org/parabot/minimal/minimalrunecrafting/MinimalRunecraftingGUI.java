@@ -24,8 +24,6 @@ public class MinimalRunecraftingGUI extends JFrame
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
         buildButtonPanel();
 
         add(buttonPanel);
